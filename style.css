@@ -1,0 +1,42 @@
+body{
+    background-color: gray;
+}
+
+h1{
+    margin: 1em auto;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+    width: 600px;
+    height: 600px;
+    padding: 20px;
+    margin: 5em auto;
+    border-radius: 12px;
+}
+
+
+.question-options {
+    list-style: none;
+    padding: 0;
+}
+
+.question-options li{
+    border: 1px solid black;
+    border-radius: 6px;
+    margin: 1em;
+    text-align: center;
+    padding: 10px;
+    background-color: #0060df;;
+    color: #eee;
+    cursor: pointer;
+}
+
+
+
+.question-options .selected {
+    background-color: #e0e0e0; /* Change the background color as desired */
+  }
+  

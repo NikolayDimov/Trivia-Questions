@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivia Questions</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="./api.js"></script>
+  </head>
+  <body>
+    <main id="main">
+        <h1>Trivia Questions</h1>
+      <section class="question-data">
+        <p id="category"></p>
+        <p id="difficulty"></p>
+        <p id="question"></p>
+      </section>
+
+      <ul class="question-options">
+        <!-- <li id="answer1"></li>
+            <li id="answer2"></li>
+            <li id="answer3"></li>
+            <li id="answer4"></li> -->
+      </ul>
+
+      <section>
+        <button id="check-answer">Check Answer</button>
+        <button id="play-again">Play Again</button>
+      </section>
+
+      <section>
+        <div class="score">
+          <span id="correct-score"></span>/<span id="total-question"></span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
