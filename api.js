@@ -9,10 +9,11 @@ const totalQuestion = document.getElementById("total-question");
 const checkBtn = document.getElementById("check-answer");
 const playAgainBtn = document.getElementById("play-again");
 
+const result = document.getElementById("result");
+
 let currentCorrectAnswer = "";
 let currentCorrectScore = (currentAskedCount = 0);
 let currentTotalQuestion = 10;
-let result = "";
 
 // Fetching data from Trivia
 async function getData() {
@@ -134,11 +135,16 @@ function handleOptionClick(event) {
 
 // Answer checking
 function checkAnswer() {
-  const selectedOption = questionOptions.querySelector(".selected");
+  const selectedOption = questionOptions.querySelector("li.selected");
 
   if (selectedOption) {
     checkBtn.disabled = true; // Disable the button to prevent multiple clicks
-    const selectedAnswer = selectedOption.textContent.trim();
+    const selectedAnswer = selectedOption.textContent
+      .replace(/^\d+\.\s/, "")
+      .trim();
+
+    console.log("Selected Answer:", selectedAnswer);
+    console.log("Correct Answer:", currentCorrectAnswer);
 
     if (selectedAnswer === currentCorrectAnswer) {
       currentCorrectScore++;
@@ -160,6 +166,7 @@ function checkAnswer() {
 
 // Show result information
 function showResult(isCorrect, message) {
+  // console.log("showResult called");
   result.innerHTML = `<p><i class="fas ${
     isCorrect ? "fa-check" : "fa-times"
   }"></i>${message}</p>`;
