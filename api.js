@@ -37,7 +37,7 @@ async function getData() {
   }
 }
 
-// Event listeners to BTNs
+// Event listeners to Buttons
 function eventListeners() {
   checkBtn.addEventListener("click", checkAnswer);
   playAgainBtn.addEventListener("click", restartQuiz);
@@ -180,7 +180,7 @@ function checkCount() {
     playAgainBtn.style.display = "block";
     checkBtn.style.display = "none";
   } else {
-    setTimeout(loadQuestions, 300); // Corrected function name
+    setTimeout(loadQuestions, 300);
   }
 }
 
