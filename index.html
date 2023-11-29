@@ -5,16 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trivia Questions</title>
     <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script defer src="./api.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body>
     <main id="main">
+      <header class="header">
         <h1>Trivia Questions</h1>
+        <div class="score">
+          <p>Counter</p>
+          <p id="total-question"></p>
+        </div>
+      </header>
+
+      <section class="selectedDifficulty">
+        <form id="difficultyForm">
+			<label for="difficulty">Select Difficulty:</label>
+			<select id="selected_difficulty" name="selected_difficulty">
+			  <option value="easy">Easy</option>
+			  <option value="medium">Medium</option>
+			  <option value="hard">Hard</option>
+			</select>
+			<button type="button" onclick="fetchTrivia()">Get Questions</button>
+		  </form>
+      </section>
+
       <section class="question-data">
-        <p id="category"></p>
-        <p id="difficulty"></p>
-        <p id="question"></p>
+        <p class="category">Category: <span id="category_span"></span></p>
+        <p class="difficulty">Difficulty: <span id="difficulty_span"></span></p>
+        <p class="question">Question: <span id="question_span"></span></p>
       </section>
 
       <ul class="question-options">
@@ -24,20 +45,15 @@
             <li id="answer4"></li> -->
       </ul>
 
-       <div id="result"></div>
-
-      <section>
+      <section class="buttons">
         <button id="check-answer">Check Answer</button>
         <button id="play-again">Play Again</button>
       </section>
 
-      <section>
-        <div class="score">
-          <span id="total-question"></span>
-        </div>
-    
-
-      </section>
+      <div id="result"></div>
     </main>
   </body>
+
+  <script src="./api.js" type="module"></script>
+
 </html>

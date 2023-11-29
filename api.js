@@ -1,8 +1,22 @@
-const url = "https://opentdb.com/api.php?amount=10&type=multiple";
+const url =
+  "https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple";
 
-const category = document.getElementById("category");
-const difficulty = document.getElementById("difficulty");
-const question = document.getElementById("question");
+const apiUrl = "https://opentdb.com/api.php";
+const selectAmount = 10;
+const selectCategory = 9;
+const selectDifficulty = document.getElementById("selected_difficulty").value;
+const apiFirstEndpoint = `${apiUrl}?amount=${selectAmount}&difficulty=${selectDifficulty}&type=multiple`;
+const apiEndpoint = "";
+
+function fetchTrivia() {
+  const selectDifficulty = document.getElementById("selected_difficulty").value;
+  apiEndpoint = `https://opentdb.com/api.php?amount=10&difficulty=${selectDifficulty}&type=multiple`;
+  console.log(apiEndpoint);
+}
+
+const category = document.getElementById("category_span");
+const difficulty = document.getElementById("difficulty_span");
+const question = document.getElementById("question_span");
 const questionOptions = document.querySelector(".question-options");
 
 const totalQuestion = document.getElementById("total-question");
@@ -12,13 +26,15 @@ const playAgainBtn = document.getElementById("play-again");
 const result = document.getElementById("result");
 
 let currentCorrectAnswer = "";
-let currentCorrectScore = (currentAskedCount = 0);
+let currentCorrectScore = 0;
+let currentAskedCount = 0;
 let currentTotalQuestion = 10;
 
 // Fetching data from Trivia
 async function getData() {
   try {
-    const response = await fetch(url);
+    const response = await fetch(apiEndpoint);
+    console.log("API Response:", response);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -70,15 +86,15 @@ function loadQuestions() {
   }
 }
 
-// Show question on the screen
+// Show question options on the screen
 function showQuestion(data) {
   currentCorrectAnswer = data.correct_answer;
   let incorrectAnswer = data.incorrect_answers;
   let optionsList = [...incorrectAnswer, currentCorrectAnswer];
   shuffleArray(optionsList);
 
-  category.textContent = `CATEGORY: ${data.category}`;
-  difficulty.textContent = `DIFFICULTY: ${data.difficulty}`;
+  category.textContent = `${data.category}`;
+  difficulty.textContent = `${data.difficulty}`;
   question.textContent = `${data.question}`;
 
   // Clear existing options
@@ -143,8 +159,8 @@ function checkAnswer() {
       .replace(/^\d+\.\s/, "")
       .trim();
 
-    console.log("Selected Answer:", selectedAnswer);
-    console.log("Correct Answer:", currentCorrectAnswer);
+    // console.log("Selected Answer:", selectedAnswer);
+    // console.log("Correct Answer:", currentCorrectAnswer);
 
     if (selectedAnswer === currentCorrectAnswer) {
       currentCorrectScore++;

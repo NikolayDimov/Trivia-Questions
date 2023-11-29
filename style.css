@@ -1,10 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
 
 body{
     background-color: gray;
+    font-family: Lato, sans-serif;
 }
 
 h1{
-    margin: 1em auto;
+    margin: 0 auto;
+    padding-bottom: 0.5em;
+    padding-left: 70px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 20px; 
+}
+
+.score {
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: #0060df;
+    color: #eee;
+    padding: 5px
+}
+
+.score p {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #main {
@@ -12,8 +37,8 @@ h1{
     flex-direction: column;
     background-color: #eee;
     width: 600px;
-    height: 600px;
-    padding: 20px;
+    height: 700px;
+    padding: 40px;
     margin: 5em auto;
     border-radius: 12px;
 }
@@ -24,6 +49,22 @@ h1{
     padding: 0;
 }
 
+/* Category / Difficulty / Question */
+.question-data .category,
+.question-data .difficulty,
+.question-data .question {
+    color: #0060df;
+}
+
+#category_span,
+#difficulty_span,
+#question_span{
+    color: black;
+}
+
+
+
+/* Options-answers */
 .question-options li{
     border: 1px solid black;
     border-radius: 6px;
@@ -35,9 +76,14 @@ h1{
     cursor: pointer;
 }
 
-
+.question-options li:hover {
+    background-color: #6c1491;
+    box-shadow: 2px 2px 2px -3px #615757;
+}
 
 .question-options .selected {
-    background-color: #e0e0e0; /* Change the background color as desired */
-  }
+    background-color: #6c1491;
+}
+
+
   
