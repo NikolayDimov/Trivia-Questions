@@ -1,7 +1,7 @@
 const apiUrl = "https://opentdb.com/api.php";
 let selectAmount = "";
 let selectDifficulty = "";
-let selectCategory = 9;
+let selectedCategory = "";
 
 document.getElementById("getDataButton").addEventListener("click", getData);
 
@@ -25,12 +25,20 @@ let currentTotalQuestion = 10;
 async function getData() {
   console.log("getData function called");
   try {
-    selectDifficulty = document.getElementById("selected_difficulty").value;
     selectAmount = document.getElementById("selected_amount").value;
+    selectDifficulty = document.getElementById("selected_difficulty").value;
+    selectedCategory = document.getElementById("selected_category").value;
+
+    // Handle "Any" option
+    const difficultyParam =
+      selectDifficulty !== "any" ? `${selectDifficulty}` : "";
+    const categoryParam =
+      selectedCategory !== "any" ? `${selectedCategory}` : "";
+
     // Update the total number of questions
     currentTotalQuestion = Number(selectAmount, 10);
 
-    const apiEndpoint = `${apiUrl}?amount=${selectAmount}&difficulty=${selectDifficulty}&type=multiple`;
+    const apiEndpoint = `${apiUrl}?amount=${selectAmount}&category=${categoryParam}&difficulty=${difficultyParam}&type=multiple`;
     console.log("apiEndpoint", apiEndpoint);
 
     const response = await fetch(apiEndpoint);

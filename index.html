@@ -20,31 +20,54 @@
         </div>
       </header>
 
-      <section class="selectedDifficultyAmaunt">
+      <section class="selectedCategory">
         <form id="selectedForm">
-			<label for="difficulty">Select Difficulty:</label>
-			<select id="selected_difficulty" name="selected_difficulty">
-			  <option value="easy">Easy</option>
-			  <option value="medium">Medium</option>
-			  <option value="hard">Hard</option>
-			</select>
-			<label for="counterQuestion">Select Amount:</label>
-			<select id="selected_amount" name="selected_amount">
-			  <option value="10">10</option>
-			  <option value="20">20</option>
-			  <option value="30">30</option>
-			</select>
-			<label for="counterQuestion">Select Amount:</label>
-			<select id="selected_amount" name="selected_amount">
-			  <option value="10">10</option>
-			  <option value="20">20</option>
-			  <option value="30">30</option>
-			</select>
-			<button id="getDataButton" type="button">Get Questions</button>
-		</form>
-	</section>
-	
-	  
+          <label for="counterQuestion">Select Amount:</label>
+          <select id="selected_amount" name="selected_amount">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+          </select>
+
+          <label for="difficulty">Select Difficulty:</label>
+          <select id="selected_difficulty" name="selected_difficulty">
+            <option value="any">Any</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+
+          <label for="selectedCategory">Select Category:</label>
+          <select id="selected_category" name="selected_category">
+            <option value="any">Any</option>
+            <option value="10">Books</option>
+            <option value="11">Films</option>
+            <option value="12">Music</option>
+            <option value="13">Musician & Theathres</option>
+            <option value="14">Television</option>
+            <option value="15">Video Games</option>
+            <option value="16">Board Games</option>
+            <option value="17">Sience & Nature</option>
+            <option value="18">Computers</option>
+            <option value="19">Mathematics</option>
+            <option value="20">Myhtodology</option>
+            <option value="21">Sports</option>
+            <option value="22">Georaphy</option>
+            <option value="23">Hystory</option>
+            <option value="24">Politics</option>
+            <option value="25">Art</option>
+            <option value="26">Celebrities</option>
+            <option value="27">Animals</option>
+            <option value="28">Vehicles</option>
+            <option value="29">Comics</option>
+            <option value="30">Gadgets</option>
+          </select>
+
+          <button id="getDataButton" type="button">Get Questions</button>
+        </form>
+      </section>
 
       <section class="question-data">
         <p class="category">Category: <span id="category_span"></span></p>
@@ -69,5 +92,4 @@
   </body>
 
   <script src="./api.js" type="module"></script>
-
 </html>
