@@ -4,15 +4,8 @@ const url =
 const apiUrl = "https://opentdb.com/api.php";
 const selectAmount = 10;
 const selectCategory = 9;
-const selectDifficulty = document.getElementById("selected_difficulty").value;
-const apiFirstEndpoint = `${apiUrl}?amount=${selectAmount}&difficulty=${selectDifficulty}&type=multiple`;
-const apiEndpoint = "";
 
-function fetchTrivia() {
-  const selectDifficulty = document.getElementById("selected_difficulty").value;
-  apiEndpoint = `https://opentdb.com/api.php?amount=10&difficulty=${selectDifficulty}&type=multiple`;
-  console.log(apiEndpoint);
-}
+document.getElementById("getDataButton").addEventListener("click", getData);
 
 const category = document.getElementById("category_span");
 const difficulty = document.getElementById("difficulty_span");
@@ -32,7 +25,14 @@ let currentTotalQuestion = 10;
 
 // Fetching data from Trivia
 async function getData() {
+  console.log("getData function called");
   try {
+    const selectDifficulty = document.getElementById(
+      "selected_difficulty"
+    ).value;
+    const apiEndpoint = `${apiUrl}?amount=${selectAmount}&difficulty=${selectDifficulty}&type=multiple`;
+    console.log("apiEndpoint", apiEndpoint);
+
     const response = await fetch(apiEndpoint);
     console.log("API Response:", response);
 
