@@ -1,9 +1,7 @@
-const url =
-  "https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple";
-
 const apiUrl = "https://opentdb.com/api.php";
-const selectAmount = 10;
-const selectCategory = 9;
+let selectAmount = "";
+let selectDifficulty = "";
+let selectCategory = 9;
 
 document.getElementById("getDataButton").addEventListener("click", getData);
 
@@ -27,9 +25,11 @@ let currentTotalQuestion = 10;
 async function getData() {
   console.log("getData function called");
   try {
-    const selectDifficulty = document.getElementById(
-      "selected_difficulty"
-    ).value;
+    selectDifficulty = document.getElementById("selected_difficulty").value;
+    selectAmount = document.getElementById("selected_amount").value;
+    // Update the total number of questions
+    currentTotalQuestion = Number(selectAmount, 10);
+
     const apiEndpoint = `${apiUrl}?amount=${selectAmount}&difficulty=${selectDifficulty}&type=multiple`;
     console.log("apiEndpoint", apiEndpoint);
 
@@ -53,7 +53,7 @@ async function getData() {
   }
 }
 
-// Event listeners to Buttons
+// Event listeners to Check Button and Play Again Btn
 function eventListeners() {
   checkBtn.addEventListener("click", checkAnswer);
   playAgainBtn.addEventListener("click", restartQuiz);

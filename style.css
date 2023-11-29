@@ -49,6 +49,12 @@ h1{
     padding: 0;
 }
 
+/* Selected form */
+#selectedForm{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 /* Category / Difficulty / Question */
 .question-data .category,
 .question-data .difficulty,

@@ -20,17 +20,31 @@
         </div>
       </header>
 
-      <section class="selectedDifficulty">
-        <form id="difficultyForm">
+      <section class="selectedDifficultyAmaunt">
+        <form id="selectedForm">
 			<label for="difficulty">Select Difficulty:</label>
 			<select id="selected_difficulty" name="selected_difficulty">
 			  <option value="easy">Easy</option>
 			  <option value="medium">Medium</option>
 			  <option value="hard">Hard</option>
 			</select>
+			<label for="counterQuestion">Select Amount:</label>
+			<select id="selected_amount" name="selected_amount">
+			  <option value="10">10</option>
+			  <option value="20">20</option>
+			  <option value="30">30</option>
+			</select>
+			<label for="counterQuestion">Select Amount:</label>
+			<select id="selected_amount" name="selected_amount">
+			  <option value="10">10</option>
+			  <option value="20">20</option>
+			  <option value="30">30</option>
+			</select>
 			<button id="getDataButton" type="button">Get Questions</button>
-		  </form>
-      </section>
+		</form>
+	</section>
+	
+	  
 
       <section class="question-data">
         <p class="category">Category: <span id="category_span"></span></p>
