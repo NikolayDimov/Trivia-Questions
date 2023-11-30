@@ -135,3 +135,7 @@ h1{
     cursor: pointer;
     border-radius: 6px;
 }
+
+#result {
+    padding-bottom: 1em;
+}
