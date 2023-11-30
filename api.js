@@ -53,6 +53,9 @@ async function getData() {
 
     // Store questions in localStorage
     localStorage.setItem("questions", JSON.stringify(data.results));
+    localStorage.setItem("selectAmount", JSON.stringify(selectAmount));
+    localStorage.setItem("selectDifficulty", JSON.stringify(selectDifficulty));
+    localStorage.setItem("selectedCategory", JSON.stringify(selectedCategory));
 
     result.innerHTML = "";
     // Show first question on the page - I don't use fetch result
@@ -178,7 +181,7 @@ function checkAnswer() {
     } else {
       showResult(
         false,
-        `Incorrect Answer! Correct Answer: ${currentCorrectAnswer}`
+        `Incorrect Answer! The Correct Answer: ${currentCorrectAnswer}`
       );
     }
 
@@ -203,6 +206,10 @@ function checkCount() {
   setCount();
   if (currentAskedCount === currentTotalQuestion) {
     result.innerHTML += `<p>Your score is ${currentCorrectScore}.</p>`;
+    localStorage.setItem(
+      "currentCorrectScore",
+      JSON.stringify(currentCorrectScore)
+    );
     playAgainBtn.style.display = "block";
     checkBtn.style.display = "none";
   } else {
@@ -224,4 +231,8 @@ function restartQuiz() {
   setCount();
   getData();
   localStorage.clear("question");
+  localStorage.clear("selectAmount");
+  localStorage.clear("selectDifficulty");
+  localStorage.clear("selectedCategory");
+  localStorage.clear("currentCorrectScore");
 }
