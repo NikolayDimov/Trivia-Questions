@@ -20,6 +20,6 @@ Welcome to the Trivia Question App! This application provides a fun and engaging
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/Trivia-Questions.git
+   git clone https://github.com/NikolayDimov/Trivia-Questions.git
    cd Trivia-Questions
    ```
