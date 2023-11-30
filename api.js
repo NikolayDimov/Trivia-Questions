@@ -11,7 +11,7 @@ const question = document.getElementById("question_span");
 const questionOptions = document.querySelector(".question-options");
 
 const totalQuestion = document.getElementById("total-question");
-const checkBtn = document.getElementById("check-answer");
+const checkBtn = document.getElementById("next-question");
 const playAgainBtn = document.getElementById("play-again");
 
 const result = document.getElementById("result");
@@ -23,7 +23,7 @@ let currentTotalQuestion = 10;
 
 // Fetching data from Trivia
 async function getData() {
-  console.log("getData function called");
+  // console.log("getData function called");
   try {
     selectAmount = document.getElementById("selected_amount").value;
     selectDifficulty = document.getElementById("selected_difficulty").value;
@@ -39,10 +39,10 @@ async function getData() {
     currentTotalQuestion = Number(selectAmount, 10);
 
     const apiEndpoint = `${apiUrl}?amount=${selectAmount}&category=${categoryParam}&difficulty=${difficultyParam}&type=multiple`;
-    console.log("apiEndpoint", apiEndpoint);
+    // console.log("apiEndpoint", apiEndpoint);
 
     const response = await fetch(apiEndpoint);
-    console.log("API Response:", response);
+    // console.log("API Response:", response);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -55,7 +55,9 @@ async function getData() {
     localStorage.setItem("questions", JSON.stringify(data.results));
 
     result.innerHTML = "";
+    // Show first question on the page
     showQuestion(data.results[0]);
+    // loadQuestions();
   } catch (error) {
     console.error(error);
   }

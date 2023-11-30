@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
 body{
     background-color: gray;
@@ -46,13 +51,33 @@ h1{
 
 .question-options {
     list-style: none;
-    padding: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 /* Selected form */
 #selectedForm{
     display: flex;
     flex-wrap: wrap;
+    gap: 1em;
+}
+
+
+#selected_amount{
+    margin-right: 40px;
+}
+
+#selected_category{
+    margin-right: 20px;
+}
+
+#getDataButton{
+    background-color: #0060df;
+    color: #eee;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
 }
 
 /* Category / Difficulty / Question */
@@ -60,6 +85,8 @@ h1{
 .question-data .difficulty,
 .question-data .question {
     color: #0060df;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #category_span,
@@ -93,3 +120,18 @@ h1{
 
 
   
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-bottom: 20px;
+}
+
+#next-question,
+#play-again {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    border-radius: 6px;
+}
