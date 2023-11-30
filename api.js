@@ -19,7 +19,7 @@ const result = document.getElementById("result");
 let currentCorrectAnswer = "";
 let currentCorrectScore = 0;
 let currentAskedCount = 0;
-let currentTotalQuestion = 10;
+let currentTotalQuestion = 0;
 
 // Fetching data from Trivia
 async function getData() {
@@ -36,10 +36,10 @@ async function getData() {
       selectedCategory !== "any" ? `${selectedCategory}` : "";
 
     // Update the total number of questions
-    currentTotalQuestion = Number(selectAmount, 10);
+    currentTotalQuestion = Number(selectAmount);
 
     const apiEndpoint = `${apiUrl}?amount=${selectAmount}&category=${categoryParam}&difficulty=${difficultyParam}&type=multiple`;
-    // console.log("apiEndpoint", apiEndpoint);
+    console.log("apiEndpoint", apiEndpoint);
 
     const response = await fetch(apiEndpoint);
     // console.log("API Response:", response);
@@ -56,8 +56,8 @@ async function getData() {
 
     result.innerHTML = "";
     // Show first question on the page
-    showQuestion(data.results[0]);
-    // loadQuestions();
+    // showQuestion(data.results[0]);
+    loadQuestions();
   } catch (error) {
     console.error(error);
   }
@@ -67,7 +67,7 @@ async function getData() {
 function eventListeners() {
   checkBtn.addEventListener("click", checkAnswer);
   playAgainBtn.addEventListener("click", restartQuiz);
-  selectOption(); // Call selectOption after loading questions
+  selectAnswers(); // Call selectAnswers after loading questions
 }
 
 // Counter questions
@@ -85,7 +85,8 @@ function loadQuestions() {
     const questions = JSON.parse(storedQuestions);
 
     // Check if there are more questions in the local storage
-    if (currentAskedCount < currentTotalQuestion - 1) {
+    if (currentAskedCount < currentTotalQuestion) {
+      // да махна  -1
       showQuestion(questions[currentAskedCount]);
     } else {
       // If no more questions in local storage, fetch new questions
@@ -117,7 +118,7 @@ function showQuestion(data) {
     questionOptions.appendChild(li);
   });
 
-  selectOption();
+  selectAnswers();
 }
 
 // Helper function to shuffle an array with answers
@@ -126,7 +127,7 @@ function shuffleArray(array) {
 }
 
 // Add click functionality on li
-function selectOption() {
+function selectAnswers() {
   const answerElements = questionOptions.querySelectorAll("li");
 
   answerElements.forEach((answerElement) => {
@@ -206,7 +207,7 @@ function checkCount() {
     playAgainBtn.style.display = "block";
     checkBtn.style.display = "none";
   } else {
-    setTimeout(loadQuestions, 300);
+    setTimeout(loadQuestions, 500);
   }
 }
 
@@ -223,4 +224,5 @@ function restartQuiz() {
   checkBtn.disabled = false;
   setCount();
   getData();
+  localStorage.clear("question");
 }
