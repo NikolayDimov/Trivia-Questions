@@ -116,7 +116,7 @@ h1{
 .question-options li{
     border: 1px solid black;
     border-radius: 6px;
-    margin: 1em;
+    margin: 1em 2em;
     text-align: center;
     padding: 10px;
     background-color: #0060df;;
@@ -145,8 +145,8 @@ h1{
 
 #next-question,
 #play-again {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     cursor: pointer;
     border-radius: 6px;
 }

@@ -58,7 +58,7 @@ async function getData() {
     localStorage.setItem("selectedCategory", JSON.stringify(selectedCategory));
 
     result.innerHTML = "";
-    // Show first question on the page - I don't use fetch result
+    // Show first question on the page - I don't use fetch result from this function showQuestion(data.results[0]);
     // showQuestion(data.results[0]);
     // Instead I use function loadQuestions(); that take data from localStorage
     loadQuestions();
