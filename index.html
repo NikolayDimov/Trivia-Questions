@@ -22,7 +22,6 @@
 
       <section class="selectedCategory">
         <form id="selectedForm">
-          <div class="wrapper">
           <label for="counterQuestion">Select Amount:</label>
           <select id="selected_amount" name="selected_amount">
             <option value="10">10</option>
@@ -39,9 +38,7 @@
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </select>
-        </div>
 
-          <div class="wrapper">
           <label for="selectedCategory">Select Category:</label>
           <select id="selected_category" name="selected_category">
             <option value="any">Any</option>
@@ -67,11 +64,10 @@
             <option value="29">Comics</option>
             <option value="30">Gadgets</option>
           </select>
-
-          <button id="getDataButton" type="button">Get Questions</button>
-        </div>
         </form>
       </section>
+
+      <button id="getDataButton" type="button">Generate new Quiz</button>
 
       <section class="question-data">
         <p class="category">Category: <span id="category_span"></span></p>

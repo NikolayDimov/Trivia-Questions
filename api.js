@@ -55,8 +55,9 @@ async function getData() {
     localStorage.setItem("questions", JSON.stringify(data.results));
 
     result.innerHTML = "";
-    // Show first question on the page
+    // Show first question on the page - I don't use fetch result
     // showQuestion(data.results[0]);
+    // Instead I use function loadQuestions(); that take data from localStorage
     loadQuestions();
   } catch (error) {
     console.error(error);
@@ -67,7 +68,6 @@ async function getData() {
 function eventListeners() {
   checkBtn.addEventListener("click", checkAnswer);
   playAgainBtn.addEventListener("click", restartQuiz);
-  selectAnswers(); // Call selectAnswers after loading questions
 }
 
 // Counter questions
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
   totalQuestion.textContent = currentTotalQuestion;
 });
 
-// Load question from localStorage or fetch new questions
+// Load question from localStorage
 function loadQuestions() {
   const storedQuestions = localStorage.getItem("questions");
 
@@ -86,7 +86,6 @@ function loadQuestions() {
 
     // Check if there are more questions in the local storage
     if (currentAskedCount < currentTotalQuestion) {
-      // да махна  -1
       showQuestion(questions[currentAskedCount]);
     } else {
       // If no more questions in local storage, fetch new questions
@@ -144,7 +143,7 @@ function selectAnswers() {
 }
 
 // Adding class="selected" for the chosen element
-function handleOptionClick(event) {
+function handleAnswerClick(event) {
   const clickedElement = event.target;
 
   if (clickedElement.tagName === "LI") {

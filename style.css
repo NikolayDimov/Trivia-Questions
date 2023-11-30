@@ -41,8 +41,8 @@ h1{
     display: flex;
     flex-direction: column;
     background-color: #eee;
-    width: 600px;
-    height: 700px;
+    width: 700px;
+    height: 750px;
     padding: 40px;
     margin: 5em auto;
     border-radius: 12px;
@@ -59,17 +59,25 @@ h1{
 #selectedForm{
     display: flex;
     flex-wrap: wrap;
-    gap: 1em;
+    /* gap: 1em; */
 }
 
+.selectedCategory{
+    padding-bottom: 1em;
+}
+
+/* .selectedDifficulty {
+    margin-right: 2px;
+} */
 
 #selected_amount{
-    margin-right: 40px;
+    margin-right: 12px;
 }
 
-#selected_category{
-    margin-right: 20px;
+#selected_difficulty{
+    margin-right: 12px;
 }
+
 
 #getDataButton{
     background-color: #0060df;
@@ -78,6 +86,14 @@ h1{
     border-radius: 6px;
     padding: 4px 10px;
     cursor: pointer;
+    margin-bottom: 10px;
+    max-width: 250px;
+    align-self: center;
+}
+
+#getDataButton:hover{
+    background-color: #6c1491;
+    box-shadow: 2px 2px 2px -3px #615757;
 }
 
 /* Category / Difficulty / Question */
@@ -85,8 +101,7 @@ h1{
 .question-data .difficulty,
 .question-data .question {
     color: #0060df;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    
 }
 
 #category_span,
