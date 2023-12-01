@@ -118,7 +118,7 @@ function eventListeners() {
 function displayRandomFunFact(funData) {
   const funFactElement = document.querySelector(".fun-fatcs-p");
   const randomFunFact = getRandomFunFact(funData);
-  funFactElement.textContent = randomFunFact;
+  funFactElement.textContent = `"${randomFunFact}"`;
 }
 
 // Load question from localStorage
