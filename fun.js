@@ -1,10 +1,17 @@
-const limit = 10;
-api_url = "https://api.api-ninjas.com/v1/facts?limit={}".format(limit);
-const headers = document
-  .querySelector("fun-fatcs-p")
-  .addEventListener("click", fetchData);
+const limit = 30;
+const api_url = `https://api.api-ninjas.com/v1/facts?limit=${limit}`;
+const headers = {
+  headers: {
+    "X-Api-Key": "JcZkU96W5n5XuzVc/0wq3w==T6O35MaJ40uGLAFU",
+    "Content-Type": "application/json",
+  },
+};
 
-async function fetchData() {
+document.addEventListener("DOMContentLoaded", () => {
+  fetchFunData();
+});
+
+async function fetchFunData() {
   try {
     const newApiResponse = await fetch(api_url, headers);
 
@@ -14,9 +21,16 @@ async function fetchData() {
 
     const funData = await newApiResponse.json();
 
-    // Process and use the new data as needed
-    // Update your HTML elements, etc.
+    // console.log(funData);
+    return funData;
   } catch (error) {
     console.error(error);
   }
 }
+
+function getRandomFunFact(funData) {
+  const randomIndex = Math.floor(Math.random() * funData.length);
+  return funData[randomIndex].fact;
+}
+
+export { fetchFunData, getRandomFunFact };

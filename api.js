@@ -1,3 +1,5 @@
+import { fetchFunData, getRandomFunFact } from "./fun.js";
+
 const apiUrl = "https://opentdb.com/api.php";
 let selectAmount = "";
 let selectDifficulty = "";
@@ -78,11 +80,29 @@ async function getData() {
     // Update the total question count
     totalQuestion.textContent = currentTotalQuestion;
 
+    // Without FunFacts
     // Show first question on the page - I don't use fetch result from this function showQuestion(data.results[0]);
     // showQuestion(data.results[0]);
     // Instead I use function loadQuestions(); that take data from localStorage
+    // loadQuestions();
 
-    loadQuestions();
+    // With FunFacts
+    const funDataPromise = fetchFunData();
+    funDataPromise.then((funData) => {
+      // Show first question on the page
+      loadQuestions();
+
+      // Display a random fun fact
+      displayRandomFunFact(funData);
+
+      // Store fun data for later use
+      const storedFunData = funData;
+
+      // Update fun fact on every question change
+      document.getElementById("next-question").addEventListener("click", () => {
+        displayRandomFunFact(storedFunData);
+      });
+    });
   } catch (error) {
     console.error(error);
   }
@@ -92,6 +112,13 @@ async function getData() {
 function eventListeners() {
   checkBtn.addEventListener("click", checkAnswer);
   playAgainBtn.addEventListener("click", restartQuiz);
+}
+
+// Add a new function to display a random fun fact
+function displayRandomFunFact(funData) {
+  const funFactElement = document.querySelector(".fun-fatcs-p");
+  const randomFunFact = getRandomFunFact(funData);
+  funFactElement.textContent = randomFunFact;
 }
 
 // Load question from localStorage
