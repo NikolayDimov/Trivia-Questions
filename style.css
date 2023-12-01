@@ -42,7 +42,7 @@ h1{
     flex-direction: column;
     background-color: #eee;
     width: 700px;
-    height: 750px;
+    /* height: 750px; */
     padding: 30px;
     margin: 2em auto;
     border-radius: 12px;
@@ -224,7 +224,6 @@ h1{
    
     #main {
         width: 350px;
-        height: 800px;
     }
 
    /* Change the width of each column to 100% for smaller screens */
