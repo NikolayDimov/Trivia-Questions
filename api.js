@@ -3,8 +3,6 @@ let selectAmount = "";
 let selectDifficulty = "";
 let selectedCategory = "";
 
-document.getElementById("getDataButton").addEventListener("click", getData);
-
 const category = document.getElementById("category_span");
 const difficulty = document.getElementById("difficulty_span");
 const question = document.getElementById("question_span");
@@ -16,15 +14,29 @@ const playAgainBtn = document.getElementById("play-again");
 
 const result = document.getElementById("result");
 
+const downloadResults = document.getElementById("downloadReasult");
+
 let currentCorrectAnswer = "";
 let currentCorrectScore = 0;
 let currentAskedCount = 0;
 let currentTotalQuestion = 0;
 
+document.getElementById("getDataButton").addEventListener("click", getData);
+
+// Counter questions
+document.addEventListener("DOMContentLoaded", () => {
+  getData();
+  eventListeners();
+  totalQuestion.textContent = currentTotalQuestion;
+});
+
 // Fetching data from Trivia
 async function getData() {
   // console.log("getData function called");
+
   try {
+    document.getElementById("downloadReasult").style.display = "none";
+
     selectAmount = document.getElementById("selected_amount").value;
     selectDifficulty = document.getElementById("selected_difficulty").value;
     selectedCategory = document.getElementById("selected_category").value;
@@ -72,13 +84,6 @@ function eventListeners() {
   checkBtn.addEventListener("click", checkAnswer);
   playAgainBtn.addEventListener("click", restartQuiz);
 }
-
-// Counter questions
-document.addEventListener("DOMContentLoaded", () => {
-  getData();
-  eventListeners();
-  totalQuestion.textContent = currentTotalQuestion;
-});
 
 // Load question from localStorage
 function loadQuestions() {
@@ -181,7 +186,8 @@ function checkAnswer() {
     } else {
       showResult(
         false,
-        `Incorrect Answer! The Correct Answer: ${currentCorrectAnswer}`
+        `Incorrect answer! 
+        The correct answer is: ${currentCorrectAnswer}`
       );
     }
 
@@ -205,13 +211,25 @@ function showResult(isCorrect, message) {
 function checkCount() {
   setCount();
   if (currentAskedCount === currentTotalQuestion) {
-    result.innerHTML += `<p>Your score is ${currentCorrectScore}.</p>`;
+    if (currentAskedCount >= 7) {
+      result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-grin-stars"></i>`;
+    } else if (currentAskedCount >= 4) {
+      result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-smile-wink"></i></p>`;
+    } else {
+      result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-smile-wink"></i></p>`;
+    }
+
     localStorage.setItem(
       "currentCorrectScore",
       JSON.stringify(currentCorrectScore)
     );
+
     playAgainBtn.style.display = "block";
     checkBtn.style.display = "none";
+
+    const wrongAnswers = selectAmount - currentCorrectScore;
+    localStorage.setItem("wrongAnswers", JSON.stringify(wrongAnswers));
+    downloadResults.style.display = "block";
   } else {
     setTimeout(loadQuestions, 500);
   }
@@ -228,11 +246,45 @@ function restartQuiz() {
   playAgainBtn.style.display = "none";
   checkBtn.style.display = "block";
   checkBtn.disabled = false;
+
   setCount();
   getData();
+
+  document.getElementById("downloadReasult").style.display = "none";
+
   localStorage.clear("question");
   localStorage.clear("selectAmount");
   localStorage.clear("selectDifficulty");
   localStorage.clear("selectedCategory");
   localStorage.clear("currentCorrectScore");
+  localStorage.clear("wrongAnswers");
 }
+
+// Download function
+
+const worker = new Worker("./worker.js", { type: "module" });
+
+downloadResults.addEventListener("click", () => {
+  const selectAmount = JSON.parse(localStorage.getItem("selectAmount"));
+  const wrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers"));
+  const selectedCategory = JSON.parse(localStorage.getItem("selectedCategory"));
+  const selectDifficulty = JSON.parse(localStorage.getItem("selectDifficulty"));
+  const currentCorrectScore = JSON.parse(
+    localStorage.getItem("currentCorrectScore")
+  );
+
+  worker.onmessage = (e) => {
+    const blob = e.data;
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "QuizResults.zip";
+    link.click();
+  };
+  worker.postMessage({
+    currentCorrectScore,
+    selectAmount,
+    wrongAnswers,
+    selectedCategory,
+    selectDifficulty,
+  });
+});

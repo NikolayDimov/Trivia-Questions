@@ -154,3 +154,23 @@ h1{
 #result {
     padding-bottom: 1em;
 }
+
+
+
+
+/* Font Awsome icon */
+.fa-times {
+    color: red;
+    margin-right: 5px;
+}
+
+.fa-check {
+    color: green;
+    margin-right: 5px;
+}
+
+.ffa-face-grin-stars,
+.fa-face-smile-wink,
+.fa-face-smile-wink {
+    color: gold;
+}
