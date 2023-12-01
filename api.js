@@ -114,7 +114,7 @@ function eventListeners() {
   playAgainBtn.addEventListener("click", restartQuiz);
 }
 
-// Add a new function to display a random fun fact
+// FunFacts random display function
 function displayRandomFunFact(funData) {
   const funFactElement = document.querySelector(".fun-fatcs-p");
   const randomFunFact = getRandomFunFact(funData);
