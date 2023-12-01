@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Fetching data from Trivia
 async function getData() {
-  // console.log("getData function called");
-
   try {
     document.getElementById("downloadReasult").style.display = "none";
 
@@ -69,10 +67,21 @@ async function getData() {
     localStorage.setItem("selectDifficulty", JSON.stringify(selectDifficulty));
     localStorage.setItem("selectedCategory", JSON.stringify(selectedCategory));
 
+    // Clear existing options and result
+    questionOptions.innerHTML = "";
     result.innerHTML = "";
+
+    // Reset question count and score
+    currentAskedCount = 0;
+    currentCorrectScore = 0;
+
+    // Update the total question count
+    totalQuestion.textContent = currentTotalQuestion;
+
     // Show first question on the page - I don't use fetch result from this function showQuestion(data.results[0]);
     // showQuestion(data.results[0]);
     // Instead I use function loadQuestions(); that take data from localStorage
+
     loadQuestions();
   } catch (error) {
     console.error(error);
@@ -90,6 +99,7 @@ function loadQuestions() {
   const storedQuestions = localStorage.getItem("questions");
 
   if (storedQuestions) {
+    // console.log("Questions found in local storage");
     const questions = JSON.parse(storedQuestions);
 
     // Check if there are more questions in the local storage
@@ -100,6 +110,7 @@ function loadQuestions() {
       getData();
     }
   } else {
+    console.log("No questions found in local storage. Fetching new questions");
     getData();
   }
 }
@@ -186,14 +197,14 @@ function checkAnswer() {
     } else {
       showResult(
         false,
-        `Incorrect answer! 
-        The correct answer is: ${currentCorrectAnswer}`
+        `Incorrect answer! The correct answer is: ${currentCorrectAnswer}`
       );
     }
 
     currentAskedCount++;
     checkCount();
-    checkBtn.disabled = false; // Re-enable the button
+    // Re-enable the button
+    checkBtn.disabled = false;
   } else {
     showResult(false, `Please select an option!`);
   }
@@ -211,12 +222,12 @@ function showResult(isCorrect, message) {
 function checkCount() {
   setCount();
   if (currentAskedCount === currentTotalQuestion) {
-    if (currentAskedCount >= 7) {
+    if (currentCorrectScore >= 7) {
       result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-grin-stars"></i>`;
-    } else if (currentAskedCount >= 4) {
+    } else if (currentCorrectScore >= 4) {
       result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-smile-wink"></i></p>`;
     } else {
-      result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-smile-wink"></i></p>`;
+      result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-sad-tear"></i></i></p>`;
     }
 
     localStorage.setItem(
@@ -261,7 +272,6 @@ function restartQuiz() {
 }
 
 // Download function
-
 const worker = new Worker("./worker.js", { type: "module" });
 
 downloadResults.addEventListener("click", () => {

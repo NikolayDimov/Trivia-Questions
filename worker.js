@@ -19,7 +19,7 @@ onmessage = async (e) => {
   );
   const text = `You answered ${currentCorrectScore} questions correctly of total ${selectAmount} and ${wrongAnswers} questions incorrectly. 
   Your result is ${resultPercentage}%
-  You choose category of "${selectedCategory}" with difficulty "${selectDifficulty}"`;
+  You choose category of "${selectedCategory}" with difficulty "${selectDifficulty}".`;
   const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
   await zipWriter.add("QuizScore.txt", new TextReader(text));
   const blob = await zipWriter.close();
