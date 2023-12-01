@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Fetching data from Trivia
-async function getData() {
+export async function getData() {
   try {
     document.getElementById("downloadReasult").style.display = "none";
 
@@ -103,6 +103,10 @@ async function getData() {
         displayRandomFunFact(storedFunData);
       });
     });
+
+    // Fixing bug with generate new quiz and Next btn and Play Again btn
+    checkBtn.style.display = "block";
+    playAgainBtn.style.display = "none";
   } catch (error) {
     console.error(error);
   }
@@ -171,7 +175,7 @@ function shuffleArray(array) {
   array.sort(() => Math.random() - 0.5);
 }
 
-// Add click functionality on li
+// Adding class="selected" for the chosen element
 function selectAnswers() {
   const answerElements = questionOptions.querySelectorAll("li");
 
@@ -186,23 +190,6 @@ function selectAnswers() {
       answerElement.classList.add("selected");
     });
   });
-}
-
-// Adding class="selected" for the chosen element
-function handleAnswerClick(event) {
-  const clickedElement = event.target;
-
-  if (clickedElement.tagName === "LI") {
-    // console.log("Clicked LI element:", clickedElement);
-    const selectedOptions = questionOptions.querySelectorAll(".selected");
-
-    selectedOptions.forEach((option) => {
-      option.classList.remove("selected");
-    });
-
-    clickedElement.classList.add("selected");
-    // console.log("Selected option:", clickedElement.textContent);
-  }
 }
 
 // Answer checking
@@ -248,6 +235,7 @@ function showResult(isCorrect, message) {
 // Check count and end quiz if needed
 function checkCount() {
   setCount();
+  checkBtn.style.display = "block";
   if (currentAskedCount === currentTotalQuestion) {
     if (currentCorrectScore >= 7) {
       result.innerHTML += `<p>Your score is ${currentCorrectScore}. <i class="fa-regular fa-face-grin-stars"></i>`;
