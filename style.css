@@ -204,7 +204,6 @@ h1{
 
 
 @media screen and (max-width: 750px) {
-   
     #main {
         width: 500px;
     }
@@ -221,18 +220,9 @@ h1{
 
 
 @media screen and (max-width: 550px) {
-   
     #main {
         width: 350px;
     }
-
-   /* Change the width of each column to 100% for smaller screens */
-  .wrapper-counterQuestion,
-  .wrapper-difficulty,
-  .wrapper-selectedCategory {
-    flex: 0 0 100%;
-    margin-right: 0; /* Remove margin for better spacing on smaller screens */
-  }
 
     .funFacts{
         width: 350px;
@@ -250,5 +240,9 @@ h1{
     padding: 4px 20px;
     cursor: pointer;
     border-radius: 6px;
+    }
+
+    .header h1 {
+        font-size: 26px;
     }
 }
