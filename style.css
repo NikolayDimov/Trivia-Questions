@@ -196,4 +196,9 @@ h1{
     width: 700px;
     margin: 0 auto;
     border-radius: 12px;
+    font-weight: bold;
+}
+
+.fun-fatcs-p {
+    font-weight: lighter;
 }

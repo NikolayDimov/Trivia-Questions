@@ -288,6 +288,19 @@ function restartQuiz() {
   setCount();
   getData();
 
+  // Fetch new fun facts
+  fetchFunData()
+    .then((funData) => {
+      // Update the stored fun data
+      const storedFunData = funData;
+
+      // Display a random fun fact
+      displayRandomFunFact(storedFunData);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
   document.getElementById("downloadReasult").style.display = "none";
 
   localStorage.clear("question");
