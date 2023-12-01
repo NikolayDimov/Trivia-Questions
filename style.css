@@ -59,16 +59,13 @@ h1{
 #selectedForm{
     display: flex;
     flex-wrap: wrap;
-    /* gap: 1em; */
 }
 
 .selectedCategory{
     padding-bottom: 1em;
 }
 
-/* .selectedDifficulty {
-    margin-right: 2px;
-} */
+
 
 #selected_amount{
     margin-right: 12px;
@@ -197,8 +194,62 @@ h1{
     margin: 0 auto;
     border-radius: 12px;
     font-weight: bold;
+    padding: 8px;
 }
 
 .fun-fatcs-p {
     font-weight: lighter;
+    padding-top: 4px;
+}
+
+
+@media screen and (max-width: 750px) {
+   
+    #main {
+        width: 500px;
+    }
+
+    .funFacts{
+        width: 500px;
+    }
+
+    #selectedForm {
+        gap: 0.3em
+    }
+
+}
+
+
+@media screen and (max-width: 550px) {
+   
+    #main {
+        width: 350px;
+        height: 800px;
+    }
+
+   /* Change the width of each column to 100% for smaller screens */
+  .wrapper-counterQuestion,
+  .wrapper-difficulty,
+  .wrapper-selectedCategory {
+    flex: 0 0 100%;
+    margin-right: 0; /* Remove margin for better spacing on smaller screens */
+  }
+
+    .funFacts{
+        width: 350px;
+    }
+
+    .buttons {
+        max-width: 200px;
+        gap: 0.4em;
+        margin-bottom: 10px;
+        margin: 0 auto;
+    }
+
+    #next-question,
+    #play-again {
+    padding: 4px 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    }
 }
