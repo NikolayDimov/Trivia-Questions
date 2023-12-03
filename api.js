@@ -315,13 +315,12 @@ function setCount() {
     totalQuestion.textContent = `${currentAskedCount}/${currentTotalQuestion}`;
 }
 
-// Restart the quiz
+// -------------------------------------------------------------------
+// * Restart the quiz *
+// --- Main function ---
 function restartQuiz() {
-    currentCorrectScore = currentAskedCount = 0;
-    playAgainBtn.style.display = "none";
-    checkBtn.style.display = "block";
-    checkBtn.disabled = false;
-
+    resetQuizState();
+    displayButtonsAfterRestart();
     setCount();
     getData();
 
@@ -338,17 +337,38 @@ function restartQuiz() {
             console.error(error);
         });
 
-    document.getElementById("downloadReasult").style.display = "none";
+    hideDownloadResultButton();
+    clearLocalStorage();
+}
+// --- Main function ---
 
-    localStorage.clear("question");
-    localStorage.clear("selectAmount");
-    localStorage.clear("selectDifficulty");
-    localStorage.clear("selectedCategory");
-    localStorage.clear("currentCorrectScore");
-    localStorage.clear("wrongAnswers");
+// -- Functions helpers --
+function resetQuizState() {
+    currentCorrectScore = currentAskedCount = 0;
+    playAgainBtn.style.display = "none";
+    checkBtn.style.display = "block";
+    checkBtn.disabled = false;
 }
 
-// Download function
+function displayButtonsAfterRestart() {
+    document.getElementById("downloadReasult").style.display = "none";
+}
+
+function hideDownloadResultButton() {
+    document.getElementById("downloadReasult").style.display = "none";
+}
+function clearLocalStorage() {
+    const keysToClear = ["question", "selectAmount", "selectDifficulty", "selectedCategory", "currentCorrectScore", "wrongAnswers"];
+
+    keysToClear.forEach((key) => {
+        localStorage.removeItem(key);
+    });
+}
+// -- Functions helpers --
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+// * Download function *
 const worker = new Worker("./worker.js", { type: "module" });
 
 downloadResults.addEventListener("click", () => {
@@ -373,3 +393,4 @@ downloadResults.addEventListener("click", () => {
         selectDifficulty,
     });
 });
+// -------------------------------------------------------------------
