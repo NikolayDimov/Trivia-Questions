@@ -348,9 +348,6 @@ function displayButtonsAfterRestart() {
     document.getElementById("downloadReasult").style.display = "none";
 }
 
-function hideDownloadResultButton() {
-    document.getElementById("downloadReasult").style.display = "none";
-}
 function clearLocalStorage() {
     const keysToClear = ["question", "selectAmount", "selectDifficulty", "selectedCategory", "currentCorrectScore", "wrongAnswers"];
 
