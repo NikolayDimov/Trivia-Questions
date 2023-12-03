@@ -32,9 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     totalQuestion.textContent = currentTotalQuestion;
 });
 
-// -------------------------------------------------------------------
-// * Fetching data from Trivia *
-
+// * Fetching data from Trivia * ------------------------------------------------------------------- START
 // --- Main function ---
 export async function getData() {
     try {
@@ -130,8 +128,7 @@ function fixBugWithButtonsDisplay() {
     playAgainBtn.style.display = "none";
 }
 // -- Functions helpers --
-// * Fetching data from Trivia *
-// -------------------------------------------------------------------
+// * Fetching data from Trivia * ------------------------------------------------------------------- END
 
 // Event listeners to Check Button and Play Again Btn
 function eventListeners() {
@@ -167,8 +164,7 @@ function loadQuestions() {
     }
 }
 
-// -------------------------------------------------------------------
-// Show question options on the screen
+// Show question options on the screen ------------------------------------------------------------------- START
 function showQuestion(data) {
     currentCorrectAnswer = data.correct_answer;
     let incorrectAnswer = data.incorrect_answers;
@@ -196,7 +192,7 @@ function showQuestion(data) {
 function shuffleArray(array) {
     array.sort(() => Math.random() - 0.5);
 }
-// -------------------------------------------------------------------
+// Show question options on the screen ------------------------------------------------------------------- END
 
 // Adding class="selected" for the chosen element
 function selectAnswers() {
@@ -248,8 +244,7 @@ function showResult(isCorrect, message) {
     result.innerHTML = `<p><i class="fas ${isCorrect ? "fa-check" : "fa-times"}"></i>${message}</p>`;
 }
 
-// -------------------------------------------------------------------
-// * Check count and end quiz if needed *
+// * Check count and end quiz if needed * -------------------------------------------------------------------  START
 // --- Main function ---
 function checkCount() {
     setCount();
@@ -308,15 +303,14 @@ function loadNextQuestion() {
     loadQuestions();
 }
 // -- Functions helpers --
-// -------------------------------------------------------------------
+// * Check count and end quiz if needed * -------------------------------------------------------------------  END
 
 // Set count in the UI
 function setCount() {
     totalQuestion.textContent = `${currentAskedCount}/${currentTotalQuestion}`;
 }
 
-// -------------------------------------------------------------------
-// * Restart the quiz *
+// * Restart the quiz * ------------------------------------------------------------------- START
 // --- Main function ---
 function restartQuiz() {
     resetQuizState();
@@ -365,10 +359,9 @@ function clearLocalStorage() {
     });
 }
 // -- Functions helpers --
-// -------------------------------------------------------------------
+// * Restart the quiz * ------------------------------------------------------------------- END
 
-// -------------------------------------------------------------------
-// * Download function *
+// * Download function * ------------------------------------------------------------------- START
 const worker = new Worker("./worker.js", { type: "module" });
 
 downloadResults.addEventListener("click", () => {
@@ -393,4 +386,4 @@ downloadResults.addEventListener("click", () => {
         selectDifficulty,
     });
 });
-// -------------------------------------------------------------------
+// * Download function * ------------------------------------------------------------------- END
