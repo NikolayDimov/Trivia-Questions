@@ -32,85 +32,101 @@ document.addEventListener("DOMContentLoaded", () => {
   totalQuestion.textContent = currentTotalQuestion;
 });
 
-// Fetching data from Trivia
+// Fetching data from Trivia  -----------------------------------------------------------
+// Main function
 export async function getData() {
   try {
-    document.getElementById("downloadReasult").style.display = "none";
-
-    selectAmount = document.getElementById("selected_amount").value;
-    selectDifficulty = document.getElementById("selected_difficulty").value;
-    selectedCategory = document.getElementById("selected_category").value;
-
-    // Handle "Any" option
-    const difficultyParam =
-      selectDifficulty !== "any" ? `${selectDifficulty}` : "";
-    const categoryParam =
-      selectedCategory !== "any" ? `${selectedCategory}` : "";
-
-    // Update the total number of questions
-    currentTotalQuestion = Number(selectAmount);
-
-    const apiEndpoint = `${apiUrl}?amount=${selectAmount}&category=${categoryParam}&difficulty=${difficultyParam}&type=multiple`;
-    console.log("apiEndpoint", apiEndpoint);
-
-    const response = await fetch(apiEndpoint);
-    // console.log("API Response:", response);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log(data.results);
-
-    // Store questions in localStorage
-    localStorage.setItem("questions", JSON.stringify(data.results));
-    localStorage.setItem("selectAmount", JSON.stringify(selectAmount));
-    localStorage.setItem("selectDifficulty", JSON.stringify(selectDifficulty));
-    localStorage.setItem("selectedCategory", JSON.stringify(selectedCategory));
-
-    // Clear existing options and result
-    questionOptions.innerHTML = "";
-    result.innerHTML = "";
-
-    // Reset question count and score
-    currentAskedCount = 0;
-    currentCorrectScore = 0;
-
-    // Update the total question count
-    totalQuestion.textContent = currentTotalQuestion;
-
-    // Without FunFacts
-    // Show first question on the page - I don't use fetch result from this function showQuestion(data.results[0]);
-    // showQuestion(data.results[0]);
-    // Instead I use function loadQuestions(); that take data from localStorage
-    // loadQuestions();
-
-    // With FunFacts
-    const funDataPromise = fetchFunData();
-    funDataPromise.then((funData) => {
-      // Show first question on the page
-      loadQuestions();
-
-      // Display a random fun fact
-      displayRandomFunFact(funData);
-
-      // Store fun data for later use
-      const storedFunData = funData;
-
-      // Update fun fact on every question change
-      document.getElementById("next-question").addEventListener("click", () => {
-        displayRandomFunFact(storedFunData);
-      });
-    });
-
-    // Fixing bug with generate new quiz and Next btn and Play Again btn
-    checkBtn.style.display = "block";
-    playAgainBtn.style.display = "none";
+    hideDownloadResultButton(); // Download result button hede, display wnhen qiuz end
+    setQuizParameters(); // Quiz parameters display on screen
+    const apiEndpoint = buildApiEndpoint(); // Build Api Endpoints
+    const response = await fetchTriviaData(apiEndpoint); // Fetching data from Trivia App
+    handleApiResponse(response); // Store questions in localStorage
+    clearOptionsAndResult(); // Clear existing options and result
+    resetQuestionCountAndScore(); // Reset question count and score
+    updateTotalQuestionCount(); // Update the total question count
+    setupQuizWithFunFacts(); // Fetch Fun Facts
+    fixBugWithButtonsDisplay(); // Fixing bug with generate new quiz and Next btn and Play Again btn
   } catch (error) {
     console.error(error);
   }
 }
+
+// Download result button hede, display wnhen qiuz end
+function hideDownloadResultButton() {
+  document.getElementById("downloadReasult").style.display = "none";
+}
+
+// Quiz parameters display on screen
+function setQuizParameters() {
+  selectAmount = document.getElementById("selected_amount").value;
+  selectDifficulty = document.getElementById("selected_difficulty").value;
+  selectedCategory = document.getElementById("selected_category").value;
+}
+
+// Build Api Endpoints
+function buildApiEndpoint() {
+  const difficultyParam =
+    selectDifficulty !== "any" ? `${selectDifficulty}` : "";
+  const categoryParam = selectedCategory !== "any" ? `${selectedCategory}` : "";
+  // Update the total number of questions
+  currentTotalQuestion = Number(selectAmount);
+  return `${apiUrl}?amount=${selectAmount}&category=${categoryParam}&difficulty=${difficultyParam}&type=multiple`;
+}
+
+// Fetching data from Trivia App
+async function fetchTriviaData(apiEndpoint) {
+  const response = await fetch(apiEndpoint);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
+}
+
+// Store questions in localStorage
+function handleApiResponse(data) {
+  console.log(data.results);
+  localStorage.setItem("questions", JSON.stringify(data.results));
+  localStorage.setItem("selectAmount", JSON.stringify(selectAmount));
+  localStorage.setItem("selectDifficulty", JSON.stringify(selectDifficulty));
+  localStorage.setItem("selectedCategory", JSON.stringify(selectedCategory));
+}
+
+// Clear existing options and result
+function clearOptionsAndResult() {
+  questionOptions.innerHTML = "";
+  result.innerHTML = "";
+}
+
+// Reset question count and score
+function resetQuestionCountAndScore() {
+  currentAskedCount = 0;
+  currentCorrectScore = 0;
+}
+
+// Update the total question count
+function updateTotalQuestionCount() {
+  totalQuestion.textContent = currentTotalQuestion;
+}
+
+// Fetch Fun Facts
+function setupQuizWithFunFacts() {
+  const funDataPromise = fetchFunData();
+  funDataPromise.then((funData) => {
+    loadQuestions();
+    displayRandomFunFact(funData);
+    const storedFunData = funData;
+    document.getElementById("next-question").addEventListener("click", () => {
+      displayRandomFunFact(storedFunData);
+    });
+  });
+}
+
+// Fixing bug with generate new quiz and Next btn and Play Again btn
+function fixBugWithButtonsDisplay() {
+  checkBtn.style.display = "block";
+  playAgainBtn.style.display = "none";
+}
+// Fetching data from Trivia  -----------------------------------------------------------
 
 // Event listeners to Check Button and Play Again Btn
 function eventListeners() {
